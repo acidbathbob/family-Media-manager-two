@@ -1,0 +1,42 @@
+# WordPress
+*.log
+.htaccess
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDE/Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Node modules (if using npm for assets)
+node_modules/
+package-lock.json
+
+# Composer
+vendor/
+composer.lock
+
+# Build files
+*.zip
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Environment files
+.env
+.env.local
+
+# Uploads (thumbnails are generated, don't commit)
+uploads/
+
+# Debug files
+debug.log
+error_log
