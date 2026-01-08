@@ -25,7 +25,22 @@ Family Media Manager creates a beautiful, simple gallery for sharing media with 
 
 ## Installation
 
-### 1. Install the Plugin
+### Quick Install (Recommended)
+
+Use the automated installation script:
+
+```bash
+cd family-media-manager
+sudo ./install.sh
+```
+
+The script will:
+- Install WordPress plugin
+- Deploy PWA (optional)
+- Configure permissions
+- Guide you through Google Drive setup
+
+### Manual Installation
 
 **Option A: Upload to WordPress**
 1. Download or clone this repository
