@@ -43,6 +43,8 @@ class Family_Media_Manager {
         require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-sharing.php';
         require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-uploader.php';
         require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-thumbnail.php';
+        require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-albums.php';
+        require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-comments.php';
         
         // Admin classes
         require_once FAMILY_MEDIA_MANAGER_PATH . 'admin/class-admin.php';

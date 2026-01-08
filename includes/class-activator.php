@@ -77,6 +77,10 @@ class Family_Media_Manager_Activator {
         dbDelta($sql_tokens);
         dbDelta($sql_albums);
         
+        // Create comments table
+        require_once FAMILY_MEDIA_MANAGER_PATH . 'includes/class-comments.php';
+        Family_Media_Manager_Comments::create_table();
+        
         // Set default options
         add_option('family_media_manager_version', FAMILY_MEDIA_MANAGER_VERSION);
         add_option('family_media_manager_thumbnail_size', 300);
