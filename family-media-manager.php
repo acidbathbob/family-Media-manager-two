@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Family Media Manager
- * Plugin URI: https://github.com/yourusername/family-media-manager
+ * Plugin URI: https://github.com/yourusername/family-media-manager-two
  * Description: A family-friendly media sharing system with cloud storage integration
  * Version: 0.1.0
  * Author: Your Name
