@@ -15,6 +15,7 @@ Family Media Manager creates a beautiful, simple gallery for sharing media with 
 - ✅ **Private** - Only family members you invite can access
 - ✅ **Mobile-First** - Optimized for older users with large buttons and simple UI
 - ✅ **REST API** - Ready for Progressive Web App integration
+- ✅ **Download Control** - Admin approval required for media downloads (v2.0 planned)
 
 ## Requirements
 
@@ -296,26 +297,59 @@ Family Members (Access)
 
 ## Development Roadmap
 
-See `DECENTRALIZED-MEDIA-CONCEPT.md` in the Downloads folder for full planning document.
+See documentation files for detailed planning:
+- `DECENTRALIZED-MEDIA-CONCEPT.md` - Conceptual overview
+- `FEATURE_DOWNLOAD_REQUESTS.md` - Download approval system spec
+- `DOWNLOAD_REQUEST_SUMMARY.md` - User-friendly feature summary
 
-### Phase 1: Core Plugin (Current)
+### Version 1.0: Core Plugin (Current - Testing)
 - ✅ Database schema
-- ✅ Cloud storage integration
+- ✅ Cloud storage integration (Google Drive)
 - ✅ Upload handler
 - ✅ REST API endpoints
 - ✅ Admin interface
+- 🧪 Windows installer (fmm-easy-setup.exe)
+- 🧪 Mac installer (fmm-easy-setup.app)
+- 🧪 Testing with guinea-pig users
 
-### Phase 2: PWA Interface (Next)
-- [ ] Mobile-optimized gallery
-- [ ] Camera access
-- [ ] Offline support
-- [ ] Push notifications
+### Version 2.0: Download Control & Enhanced Features (Planned)
+- [ ] **Download Request System** - Admin approval required for downloads
+  - Family members click "Request Download"
+  - Admin can approve, deny, or request more info
+  - Optional messaging between admin and requester
+  - Complete audit trail and download history
+  - Time-limited download links
+- [ ] Albums & Collections
+- [ ] Advanced sharing controls
+- [ ] Family member roles (Viewer, Uploader, Admin)
+- [ ] Download reports and analytics
 
-### Phase 3: Enhanced Features
-- [ ] Albums
-- [ ] Facial recognition
-- [ ] Video thumbnails
-- [ ] Multiple cloud providers
+### Version 3.0: Advanced Features (Future)
+- [ ] PWA with mobile offline support
+- [ ] Facial recognition for organization
+- [ ] Video thumbnail generation
+- [ ] Multiple cloud providers (AWS S3, OneDrive)
+- [ ] GDPR compliance features
+
+## Testing
+
+The plugin is currently in active testing with real users:
+
+### Testing Documentation
+- `TESTING_STRATEGY.md` - Master testing guide and server setup
+- `TESTING_WINDOWS.md` - Windows installer testing procedures
+- `TESTING_MAC.md` - Mac installer testing procedures
+- `README_WINDOWS.md` - User guide for Windows testers
+- `README_MACOS.md` - User guide for Mac testers
+
+### Building Installers
+- `BUILD_WINDOWS_EXE.md` - How to build Windows .exe
+- `BUILD_MAC_APP.md` - How to build Mac .app
+- `SAMBA_SETUP.sh` - Automated Samba server setup for testing
+- `SAMBA_QUICK_COMMANDS.md` - Samba command reference
+
+### Test Server
+Testing is performed on a home Fedora server at https://bob490.co.uk with full WordPress installation and plugin v1.0 already running.
 
 ## Contributing
 
