@@ -1,0 +1,381 @@
+#!/bin/bash
+###############################################################################
+# Family Media Manager - Easy Setup Wizard (GUI)
+# User-friendly graphical installer for non-technical users
+###############################################################################
+
+set -e  # Exit on error
+
+# Check if zenity is installed
+if ! command -v zenity &> /dev/null; then
+    # Try to install zenity
+    if command -v dnf &> /dev/null; then
+        sudo dnf install -y zenity
+    elif command -v apt-get &> /dev/null; then
+        sudo apt-get install -y zenity
+    else
+        echo "ERROR: zenity is required but not installed."
+        echo "Please install it with: sudo dnf install zenity"
+        exit 1
+    fi
+fi
+
+# Configuration variables
+WP_PATH=""
+PWA_PATH=""
+WP_URL=""
+GOOGLE_CLIENT_ID=""
+GOOGLE_CLIENT_SECRET=""
+INSTALL_PWA=false
+
+###############################################################################
+# Helper Functions
+###############################################################################
+
+show_error() {
+    zenity --error --title="Family Media Manager Setup" --text="$1" --width=400
+}
+
+show_success() {
+    zenity --info --title="Family Media Manager Setup" --text="$1" --width=400
+}
+
+show_warning() {
+    zenity --warning --title="Family Media Manager Setup" --text="$1" --width=400
+}
+
+show_progress() {
+    echo "$1"
+    sleep 1
+}
+
+###############################################################################
+# Welcome Screen
+###############################################################################
+
+zenity --info \
+    --title="Family Media Manager - Easy Setup" \
+    --width=500 \
+    --height=300 \
+    --text="<big><b>Welcome to Family Media Manager Setup!</b></big>\n\n\
+This wizard will guide you through installing your family photo sharing system.\n\n\
+<b>What we'll set up:</b>\n\
+• WordPress plugin installation\n\
+• Google Drive connection\n\
+• Mobile app (optional)\n\n\
+<b>Time needed:</b> 5-10 minutes\n\n\
+<b>Note:</b> You'll need:\n\
+  - WordPress website\n\
+  - Google account\n\
+  - Google Cloud credentials (we'll show you how)\n\n\
+Click OK to continue..."
+
+if [ $? -ne 0 ]; then
+    exit 0
+fi
+
+###############################################################################
+# Step 1: WordPress Path
+###############################################################################
+
+WP_PATH=$(zenity --file-selection \
+    --title="Step 1: Select Your WordPress Folder" \
+    --directory \
+    --filename="/var/www/html/" \
+    --text="Select the folder where WordPress is installed.\n\nUsually this is:\n• /var/www/html/wordpress\n• /var/www/html\n• /home/yourusername/public_html")
+
+if [ $? -ne 0 ]; then
+    exit 0
+fi
+
+# Validate WordPress installation
+if [ ! -f "$WP_PATH/wp-config.php" ]; then
+    show_error "This doesn't look like a WordPress folder.\n\nWe couldn't find wp-config.php in:\n$WP_PATH\n\nPlease select the correct WordPress folder."
+    exit 1
+fi
+
+show_success "WordPress found!\n\nLocation: $WP_PATH"
+
+###############################################################################
+# Step 2: Install Plugin
+###############################################################################
+
+(
+    echo "10" ; show_progress "Creating plugin folder..."
+    PLUGIN_DIR="$WP_PATH/wp-content/plugins/family-media-manager"
+    
+    if [ -d "$PLUGIN_DIR" ]; then
+        rm -rf "$PLUGIN_DIR"
+    fi
+    mkdir -p "$PLUGIN_DIR"
+    
+    echo "40" ; show_progress "Copying plugin files..."
+    cp -r family-media-manager.php includes/ admin/ public/ "$PLUGIN_DIR/"
+    
+    echo "70" ; show_progress "Setting permissions..."
+    sudo chown -R www-data:www-data "$PLUGIN_DIR" 2>/dev/null || \
+    sudo chown -R apache:apache "$PLUGIN_DIR" 2>/dev/null || \
+    sudo chown -R nginx:nginx "$PLUGIN_DIR" 2>/dev/null || true
+    
+    echo "100" ; show_progress "Plugin installed!"
+) | zenity --progress \
+    --title="Installing WordPress Plugin" \
+    --text="Installing..." \
+    --percentage=0 \
+    --auto-close
+
+show_success "Plugin installed successfully!\n\n<b>Next step:</b> You'll need to activate it in WordPress.\n\nWe'll show you how at the end."
+
+###############################################################################
+# Step 3: WordPress URL
+###############################################################################
+
+WP_URL=$(zenity --entry \
+    --title="Step 2: Your WordPress Website Address" \
+    --text="Enter your WordPress website address (URL).\n\n<b>Examples:</b>\n• https://myfamilyphotos.com\n• https://www.mysite.com/wordpress\n• http://localhost/wordpress (for testing)\n\n<b>Important:</b> Include http:// or https://" \
+    --entry-text="https://")
+
+if [ $? -ne 0 ]; then
+    exit 0
+fi
+
+# Remove trailing slash
+WP_URL=$(echo "$WP_URL" | sed 's:/*$::')
+
+###############################################################################
+# Step 4: PWA Installation (Optional)
+###############################################################################
+
+zenity --question \
+    --title="Step 3: Mobile App (Optional)" \
+    --width=500 \
+    --text="<b>Do you want to install the mobile app?</b>\n\n\
+The mobile app allows family members to:\n\
+• Take photos directly from their phone\n\
+• Upload pictures easily\n\
+• View the family gallery\n• Install as a home screen app\n\n\
+<b>Recommended:</b> Yes, unless you only want to use WordPress.\n\n\
+Install mobile app?"
+
+if [ $? -eq 0 ]; then
+    INSTALL_PWA=true
+    
+    PWA_PATH=$(zenity --file-selection \
+        --title="Where should we install the mobile app?" \
+        --directory \
+        --filename="/var/www/" \
+        --text="Select a folder for the mobile app.\n\nThis should be a web-accessible folder, like:\n• /var/www/gallery\n• /var/www/html/gallery\n• /home/yourusername/public_html/gallery")
+    
+    if [ $? -ne 0 ]; then
+        INSTALL_PWA=false
+    else
+        (
+            echo "10" ; show_progress "Creating mobile app folder..."
+            mkdir -p "$PWA_PATH"
+            
+            echo "40" ; show_progress "Copying app files..."
+            cp -r pwa/* "$PWA_PATH/"
+            
+            echo "60" ; show_progress "Configuring API connection..."
+            sed -i "s|window.location.origin|'$WP_URL'|g" "$PWA_PATH/js/app.js"
+            
+            echo "80" ; show_progress "Setting permissions..."
+            sudo chown -R www-data:www-data "$PWA_PATH" 2>/dev/null || \
+            sudo chown -R apache:apache "$PWA_PATH" 2>/dev/null || \
+            sudo chown -R nginx:nginx "$PWA_PATH" 2>/dev/null || true
+            
+            echo "100" ; show_progress "Mobile app installed!"
+        ) | zenity --progress \
+            --title="Installing Mobile App" \
+            --text="Installing..." \
+            --percentage=0 \
+            --auto-close
+        
+        show_success "Mobile app installed!\n\nLocation: $PWA_PATH"
+    fi
+fi
+
+###############################################################################
+# Step 5: Google Drive Setup Instructions
+###############################################################################
+
+zenity --info \
+    --title="Step 4: Google Drive Setup" \
+    --width=600 \
+    --height=400 \
+    --text="<big><b>Now let's connect Google Drive</b></big>\n\n\
+We need to get credentials from Google. Don't worry, we'll guide you!\n\n\
+<b>Open this website in your browser:</b>\n\
+<span foreground='blue'>https://console.cloud.google.com</span>\n\n\
+<b>What to do there:</b>\n\
+1. Sign in with your Google account\n\
+2. Click the project dropdown (top left)\n\
+3. Click \"NEW PROJECT\"\n\
+4. Name it: <b>Family Media Manager</b>\n\
+5. Click \"CREATE\"\n\n\
+<b>When you're done, click OK to continue...</b>"
+
+# Enable Google Drive API
+zenity --info \
+    --title="Step 4: Enable Google Drive API" \
+    --width=600 \
+    --height=350 \
+    --text="<big><b>Enable Google Drive API</b></big>\n\n\
+<b>In the Google Cloud Console:</b>\n\n\
+1. Click <b>\"APIs &amp; Services\"</b> in the left menu\n\
+2. Click <b>\"Library\"</b>\n\
+3. Search for: <b>\"Google Drive API\"</b>\n\
+4. Click on it\n\
+5. Click the blue <b>\"ENABLE\"</b> button\n\
+6. Wait a few seconds\n\n\
+<b>When you see the API dashboard, click OK...</b>"
+
+# OAuth Consent Screen
+zenity --info \
+    --title="Step 4: OAuth Consent Screen" \
+    --width=600 \
+    --height=450 \
+    --text="<big><b>Configure OAuth Consent Screen</b></big>\n\n\
+<b>In the Google Cloud Console:</b>\n\n\
+1. Go to <b>\"APIs &amp; Services\" → \"OAuth consent screen\"</b>\n\
+2. Select <b>\"External\"</b> user type\n\
+3. Click <b>\"CREATE\"</b>\n\
+4. Fill in the form:\n\
+   • App name: <b>Family Media Manager</b>\n\
+   • User support email: <b>Your email</b>\n\
+   • Developer contact: <b>Your email</b>\n\
+5. Click <b>\"SAVE AND CONTINUE\"</b>\n\
+6. Click <b>\"ADD OR REMOVE SCOPES\"</b>\n\
+7. Find and check: <b>.../auth/drive.file</b>\n\
+8. Click <b>\"UPDATE\"</b>, then <b>\"SAVE AND CONTINUE\"</b>\n\
+9. Click <b>\"BACK TO DASHBOARD\"</b>\n\n\
+<b>When done, click OK...</b>"
+
+# Create Credentials
+REDIRECT_URI="$WP_URL/wp-admin/admin.php?page=family-media-manager-settings&action=oauth_callback"
+
+zenity --info \
+    --title="Step 4: Create Credentials" \
+    --width=600 \
+    --height=400 \
+    --text="<big><b>Create OAuth Credentials</b></big>\n\n\
+<b>In the Google Cloud Console:</b>\n\n\
+1. Go to <b>\"APIs &amp; Services\" → \"Credentials\"</b>\n\
+2. Click <b>\"+ CREATE CREDENTIALS\"</b>\n\
+3. Select <b>\"OAuth client ID\"</b>\n\
+4. Application type: <b>\"Web application\"</b>\n\
+5. Name: <b>Family Media Manager Web</b>\n\
+6. Under \"Authorized redirect URIs\", click <b>\"+ ADD URI\"</b>\n\
+7. Paste this <b>exact</b> URL:\n\n\
+   <span foreground='blue' font='monospace 9'>$REDIRECT_URI</span>\n\n\
+8. Click <b>\"CREATE\"</b>\n\n\
+<b>A popup will show your credentials. Keep it open!</b>\n\n\
+Click OK when you see your Client ID and Secret..."
+
+###############################################################################
+# Step 6: Enter Google Credentials
+###############################################################################
+
+CREDENTIALS=$(zenity --forms \
+    --title="Step 5: Enter Your Google Credentials" \
+    --text="Copy and paste your credentials from Google Cloud Console.\n\nThe popup should still be open with your Client ID and Client Secret." \
+    --width=600 \
+    --add-entry="Client ID (looks like: 123456-abc.apps.googleusercontent.com):" \
+    --add-entry="Client Secret (looks like: GOCSPX-abc123...):" \
+    --separator="|")
+
+if [ $? -ne 0 ]; then
+    show_warning "Setup cannot continue without Google credentials.\n\nYou can add them later in WordPress:\nFamily Gallery → Settings"
+    exit 0
+fi
+
+GOOGLE_CLIENT_ID=$(echo "$CREDENTIALS" | cut -d'|' -f1)
+GOOGLE_CLIENT_SECRET=$(echo "$CREDENTIALS" | cut -d'|' -f2)
+
+if [ -z "$GOOGLE_CLIENT_ID" ] || [ -z "$GOOGLE_CLIENT_SECRET" ]; then
+    show_error "Both Client ID and Client Secret are required!"
+    exit 1
+fi
+
+###############################################################################
+# Step 7: Save Configuration
+###############################################################################
+
+(
+    echo "20" ; show_progress "Saving configuration..."
+    
+    # Create a configuration file for later use
+    CONFIG_FILE="$HOME/.fmm-setup-config"
+    cat > "$CONFIG_FILE" << EOF
+WP_PATH="$WP_PATH"
+WP_URL="$WP_URL"
+PWA_PATH="$PWA_PATH"
+REDIRECT_URI="$REDIRECT_URI"
+GOOGLE_CLIENT_ID="$GOOGLE_CLIENT_ID"
+GOOGLE_CLIENT_SECRET="$GOOGLE_CLIENT_SECRET"
+INSTALL_PWA=$INSTALL_PWA
+EOF
+    
+    echo "100" ; show_progress "Configuration saved!"
+) | zenity --progress \
+    --title="Saving Configuration" \
+    --text="Saving..." \
+    --percentage=0 \
+    --auto-close
+
+###############################################################################
+# Final Instructions
+###############################################################################
+
+FINAL_MESSAGE="<big><b>🎉 Setup Complete!</b></big>\n\n"
+FINAL_MESSAGE+="<b>What we did:</b>\n"
+FINAL_MESSAGE+="✅ Installed WordPress plugin\n"
+FINAL_MESSAGE+="✅ Saved Google Drive credentials\n"
+if [ "$INSTALL_PWA" = true ]; then
+    FINAL_MESSAGE+="✅ Installed mobile app\n"
+fi
+FINAL_MESSAGE+="\n<big><b>Next Steps (Important!):</b></big>\n\n"
+FINAL_MESSAGE+="<b>1. Activate the Plugin in WordPress:</b>\n"
+FINAL_MESSAGE+="   • Go to your WordPress admin: <span foreground='blue'>$WP_URL/wp-admin</span>\n"
+FINAL_MESSAGE+="   • Click <b>\"Plugins\"</b> in the left menu\n"
+FINAL_MESSAGE+="   • Find <b>\"Family Media Manager\"</b>\n"
+FINAL_MESSAGE+="   • Click <b>\"Activate\"</b>\n\n"
+FINAL_MESSAGE+="<b>2. Connect Google Drive:</b>\n"
+FINAL_MESSAGE+="   • Go to <b>\"Family Gallery\" → \"Settings\"</b>\n"
+FINAL_MESSAGE+="   • Paste these credentials:\n\n"
+FINAL_MESSAGE+="     <b>Client ID:</b>\n"
+FINAL_MESSAGE+="     <span font='monospace 8'>$GOOGLE_CLIENT_ID</span>\n\n"
+FINAL_MESSAGE+="     <b>Client Secret:</b>\n"
+FINAL_MESSAGE+="     <span font='monospace 8'>$GOOGLE_CLIENT_SECRET</span>\n\n"
+FINAL_MESSAGE+="   • Click <b>\"Save Changes\"</b>\n"
+FINAL_MESSAGE+="   • Click <b>\"Connect Google Drive\"</b>\n"
+FINAL_MESSAGE+="   • Follow the Google authorization prompts\n\n"
+
+if [ "$INSTALL_PWA" = true ]; then
+    FINAL_MESSAGE+="<b>3. Access the Mobile App:</b>\n"
+    FINAL_MESSAGE+="   • Set up your web server to serve: $PWA_PATH\n"
+    FINAL_MESSAGE+="   • Access it from your phone's browser\n"
+    FINAL_MESSAGE+="   • Install it to your home screen\n\n"
+fi
+
+FINAL_MESSAGE+="<b>Need help?</b>\n"
+FINAL_MESSAGE+="Check README.md or USER-GUIDE.md in the installation folder.\n\n"
+FINAL_MESSAGE+="<b>Configuration saved to:</b> $CONFIG_FILE"
+
+zenity --info \
+    --title="Setup Complete! 🎉" \
+    --width=700 \
+    --height=600 \
+    --text="$FINAL_MESSAGE"
+
+# Ask if user wants to open WordPress admin
+zenity --question \
+    --title="Open WordPress Admin?" \
+    --text="Would you like to open WordPress admin now to activate the plugin?" \
+    --width=400
+
+if [ $? -eq 0 ]; then
+    xdg-open "$WP_URL/wp-admin" 2>/dev/null || true
+fi
+
+exit 0

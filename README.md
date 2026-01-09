@@ -25,7 +25,28 @@ Family Media Manager creates a beautiful, simple gallery for sharing media with 
 
 ## Installation
 
-### Quick Install (Recommended)
+### 🎯 Easy Setup (Graphical Installer - Recommended for Non-Technical Users)
+
+**Perfect for grandparents and non-technical users!**
+
+Use the graphical setup wizard with clear instructions and input forms:
+
+```bash
+cd family-media-manager
+./fmm-easy-setup
+```
+
+**Features:**
+- ✅ Visual step-by-step wizard with dialog boxes
+- ✅ Clear instructions for Google Cloud Console setup
+- ✅ Input forms for Google credentials (no command line editing)
+- ✅ Progress bars and confirmation dialogs
+- ✅ Saves configuration for future reference
+- ✅ Opens WordPress admin when finished
+
+**Note**: Requires `zenity` (automatically installed if missing on Fedora/Ubuntu)
+
+### Quick Install (Command Line)
 
 Use the automated installation script:
 
