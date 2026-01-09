@@ -1,0 +1,183 @@
+================================================================================
+FAMILY MEDIA MANAGER - MAC INSTALLER FEEDBACK FORM
+================================================================================
+
+Thank you for testing the Family Media Manager Mac installer!
+Your feedback helps us make this better for everyone.
+
+Please fill out this form and upload it to: smb://bob490.co.uk/testing/feedback/mac/
+
+================================================================================
+TESTER INFORMATION
+================================================================================
+
+Your Name: _________________________________________________________________
+
+Email Address: _____________________________________________________________
+
+macOS Version: _____________________________________________________________
+(Example: macOS 12 Monterey, macOS 13 Ventura, macOS 14 Sonoma, etc.)
+
+Mac Type:
+  [ ] Intel Mac
+  [ ] Apple Silicon (M1/M2/M3)
+
+Testing Date: ______________________________________________________________
+
+Test Method Used:
+  [ ] DMG File (Disk Image)
+  [ ] Direct .app Download
+  [ ] SMB Network Path (smb://bob490.co.uk/wordpress)
+
+
+================================================================================
+INSTALLATION PHASE
+================================================================================
+
+1. Did the installer app open without errors?
+   [ ] Yes    [ ] No    [ ] Had issues: _________________________________
+
+2. Did you see a macOS security warning?
+   [ ] No warning    [ ] Yes, but I could dismiss it    [ ] Yes, blocked it
+
+3. Was the WordPress folder selection easy to understand?
+   [ ] Very easy    [ ] Easy    [ ] Confusing    [ ] Very difficult
+
+4. Did you have trouble finding your WordPress folder?
+   [ ] No trouble    [ ] A little    [ ] A lot
+
+5. Was the WordPress URL entry clear?
+   [ ] Yes, very clear    [ ] Mostly clear    [ ] Confusing
+
+6. Did the Mobile App installation option make sense?
+   [ ] Yes    [ ] Somewhat    [ ] No
+
+7. Did the Google Drive instructions make sense?
+   [ ] Yes, very clear    [ ] Mostly clear    [ ] Confusing
+
+8. Did you encounter any errors during installation?
+   [ ] No errors    [ ] Yes: ___________________________________________
+
+If yes, what was the error message?
+________________________________________________________________________
+________________________________________________________________________
+
+
+================================================================================
+ACTIVATION PHASE
+================================================================================
+
+9. Could you activate the plugin in WordPress?
+   [ ] Yes, successfully    [ ] Had trouble    [ ] Couldn't do it
+
+10. Did the plugin appear in the Plugins list?
+    [ ] Yes    [ ] No
+
+11. Any issues during activation?
+    [ ] No issues    [ ] Yes: ___________________________________________
+
+
+================================================================================
+OVERALL EXPERIENCE
+================================================================================
+
+12. How easy was the entire process?
+    [ ] Very easy    [ ] Easy    [ ] Neutral    [ ] Difficult    [ ] Very difficult
+
+13. What was the most confusing part?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+14. What was the easiest part?
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+15. Would you recommend this installer to non-technical family members?
+    [ ] Definitely yes    [ ] Probably yes    [ ] Unsure    [ ] No
+
+16. How long did the entire process take?
+    [ ] 5-10 minutes    [ ] 10-15 minutes    [ ] 15-20 minutes    [ ] Longer
+
+
+================================================================================
+MAC-SPECIFIC FEEDBACK
+================================================================================
+
+17. The app window size was:
+    [ ] Just right    [ ] Too small    [ ] Too large
+
+18. The font size was:
+    [ ] Easy to read    [ ] A bit small    [ ] Too small
+
+19. Button labels were:
+    [ ] Clear    [ ] Somewhat clear    [ ] Confusing
+
+20. File browser dialog was:
+    [ ] Intuitive    [ ] Okay    [ ] Confusing
+
+21. The app responded well to clicks?
+    [ ] Very responsive    [ ] Fine    [ ] Slow
+
+22. Did the app feel native to macOS?
+    [ ] Yes, very native    [ ] Mostly    [ ] Not really
+
+23. Security/Permission prompts were:
+    [ ] Clear    [ ] Somewhat clear    [ ] Confusing    [ ] N/A
+
+
+================================================================================
+ADDITIONAL COMMENTS
+================================================================================
+
+24. Any other comments or suggestions?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+25. What could we improve?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+26. What did you like about the installer?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+27. Would you use this on another Mac?
+    [ ] Definitely yes    [ ] Probably yes    [ ] Unsure    [ ] No
+
+
+================================================================================
+TECHNICAL DETAILS (Optional)
+================================================================================
+
+28. Did you get any error messages? (Copy them here if you have them)
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+29. Mac specifications (optional):
+    CPU: ___________________________________________________________________
+    RAM: ____________________________________________________________________
+    Storage: ________________________________________________________________
+    Security Software: ____________________________________________________
+
+
+================================================================================
+THANK YOU!
+================================================================================
+
+Thank you for taking the time to test this installer and provide feedback.
+Your input is invaluable in making Family Media Manager better.
+
+If you have any questions or run into issues after this testing,
+please feel free to contact: bob490.co.uk
+
+Questions? Upload this form and any relevant screenshots to:
+smb://bob490.co.uk/testing/feedback/mac/
+
+================================================================================

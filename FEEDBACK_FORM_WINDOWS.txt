@@ -1,0 +1,166 @@
+================================================================================
+FAMILY MEDIA MANAGER - WINDOWS INSTALLER FEEDBACK FORM
+================================================================================
+
+Thank you for testing the Family Media Manager Windows installer!
+Your feedback helps us make this better for everyone.
+
+Please fill out this form and upload it to: \\bob490.co.uk\testing\feedback\windows\
+
+================================================================================
+TESTER INFORMATION
+================================================================================
+
+Your Name: _________________________________________________________________
+
+Email Address: _____________________________________________________________
+
+Windows Version (10 or 11): ________________________________________________
+
+Testing Date: ______________________________________________________________
+
+Test Method Used:
+  [ ] UNC Network Path (\\bob490.co.uk\wordpress)
+  [ ] Pre-Installed (provided folder path)
+  [ ] Local ZIP File
+
+
+================================================================================
+INSTALLATION PHASE
+================================================================================
+
+1. Did the installer start without errors?
+   [ ] Yes    [ ] No    [ ] Had issues: _________________________________
+
+2. Was the WordPress folder selection easy to understand?
+   [ ] Very easy    [ ] Easy    [ ] Confusing    [ ] Very difficult
+
+3. Did you have trouble finding your WordPress folder?
+   [ ] No trouble    [ ] A little    [ ] A lot
+
+4. Was the WordPress URL entry clear?
+   [ ] Yes, very clear    [ ] Mostly clear    [ ] Confusing
+
+5. Did the Mobile App installation option make sense?
+   [ ] Yes    [ ] Somewhat    [ ] No
+
+6. Did the Google Drive instructions make sense?
+   [ ] Yes, very clear    [ ] Mostly clear    [ ] Confusing
+
+7. Did you encounter any errors during installation?
+   [ ] No errors    [ ] Yes: ___________________________________________
+
+If yes, what was the error message?
+________________________________________________________________________
+________________________________________________________________________
+
+
+================================================================================
+ACTIVATION PHASE
+================================================================================
+
+8. Could you activate the plugin in WordPress?
+   [ ] Yes, successfully    [ ] Had trouble    [ ] Couldn't do it
+
+9. Did the plugin appear in the Plugins list?
+   [ ] Yes    [ ] No
+
+10. Any issues during activation?
+    [ ] No issues    [ ] Yes: ___________________________________________
+
+
+================================================================================
+OVERALL EXPERIENCE
+================================================================================
+
+11. How easy was the entire process?
+    [ ] Very easy    [ ] Easy    [ ] Neutral    [ ] Difficult    [ ] Very difficult
+
+12. What was the most confusing part?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+13. What was the easiest part?
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+14. Would you recommend this installer to non-technical family members?
+    [ ] Definitely yes    [ ] Probably yes    [ ] Unsure    [ ] No
+
+15. How long did the entire process take?
+    [ ] 5-10 minutes    [ ] 10-15 minutes    [ ] 15-20 minutes    [ ] Longer
+
+
+================================================================================
+SPECIFIC FEEDBACK
+================================================================================
+
+16. The installer window size was:
+    [ ] Just right    [ ] Too small    [ ] Too large
+
+17. The font size was:
+    [ ] Easy to read    [ ] A bit small    [ ] Too small
+
+18. Button labels were:
+    [ ] Clear    [ ] Somewhat clear    [ ] Confusing
+
+19. The progress indicators were:
+    [ ] Helpful    [ ] Okay    [ ] Confusing
+
+20. Error messages (if any) were:
+    [ ] Clear and helpful    [ ] Somewhat helpful    [ ] Not helpful    [ ] N/A
+
+
+================================================================================
+ADDITIONAL COMMENTS
+================================================================================
+
+21. Any other comments or suggestions?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+22. What could we improve?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+23. What did you like about the installer?
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+
+================================================================================
+TECHNICAL DETAILS (Optional)
+================================================================================
+
+24. Did you get any error messages? (Copy them here if you have them)
+    ________________________________________________________________________
+    ________________________________________________________________________
+    ________________________________________________________________________
+
+25. System information (optional):
+    Processor: ____________________________________________________________
+    RAM: ____________________________________________________________________
+    Antivirus Software: ___________________________________________________
+    Firewall: ______________________________________________________________
+
+
+================================================================================
+THANK YOU!
+================================================================================
+
+Thank you for taking the time to test this installer and provide feedback.
+Your input is invaluable in making Family Media Manager better.
+
+If you have any questions or run into issues after this testing,
+please feel free to contact: bob490.co.uk
+
+Questions? Upload this form and any relevant screenshots to:
+\\bob490.co.uk\testing\feedback\windows\
+
+================================================================================
