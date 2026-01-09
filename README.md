@@ -31,6 +31,16 @@ Family Media Manager creates a beautiful, simple gallery for sharing media with 
 
 Use the graphical setup wizard with clear instructions and input forms:
 
+**Step 1: Install zenity (required for GUI dialogs)**
+```bash
+# Fedora/RHEL/CentOS
+sudo dnf install zenity
+
+# Ubuntu/Debian
+sudo apt install zenity
+```
+
+**Step 2: Run the Easy Setup wizard**
 ```bash
 cd family-media-manager
 ./fmm-easy-setup
@@ -43,8 +53,6 @@ cd family-media-manager
 - ✅ Progress bars and confirmation dialogs
 - ✅ Saves configuration for future reference
 - ✅ Opens WordPress admin when finished
-
-**Note**: Requires `zenity` (automatically installed if missing on Fedora/Ubuntu)
 
 ### Quick Install (Command Line)
 
